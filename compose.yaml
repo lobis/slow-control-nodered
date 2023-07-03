@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+  mosquitto:
+    image: eclipse-mosquitto:latest
+    ports:
+      - 1883:1883
+    networks:
+      - slow-control
+    volumes:
+      - ./mqtt/mosquitto/config:/mosquitto/config
+
+  database:
+    image: postgres:latest
+    ports:
+      - 5432:5432
+    networks:
+      - slow-control
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=changeme
+
+  nodered:
+    image: nodered/node-red:latest
+    ports:
+      - 1880:1880
+    networks:
+      - slow-control
+    volumes:
+      - ./nodered:/data
+
+networks:
+  slow-control:
