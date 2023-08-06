@@ -28,6 +28,7 @@ services:
       - slow-control
     volumes:
       - ./nodered:/data
+    entrypoint: sh -cx "cd /data && curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py && python get-pip.py && python -m pip install hvps && npm install hvps && npm install hvps-node-red && cd /usr/src/node-red && ./entrypoint.sh"
 
 networks:
   slow-control:
